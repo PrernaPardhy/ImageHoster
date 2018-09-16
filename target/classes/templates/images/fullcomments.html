@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Own Image Hosting</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tachyons.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}"/>
+</head>
+
+<body class="sans-serif">
+<p class="f6 f5-ns lh-copy measure" th:text="${error}">
+    text
+</p>
+<article th:each="p: ${commentslist}">
+    <h2 class="title" th:text="${p.commentText}">post title</h2>
+    <h2 class="title" th:text="${p.user.getUsername()}">post title</h2>
+</article>
+
+</body>
+</html>

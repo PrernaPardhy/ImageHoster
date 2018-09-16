@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Own Image Hosting</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tachyons.min.css}"/>
+</head>
+<body class="sans-serif">
+<nav class="dt w-100 border-box pa3">
+    <a class="dtc v-mid mid-gray link dim w-25" href="/" title="Home">
+        <h3 color="red pa0">Image Uploader</h3>
+    </a>
+    <div class="dtc v-mid w-75 tr">
+        <div th:if="${session.currUser}">
+            <a class="black link pointer f6 f5-l dib mr3 mr4-l" th:href="'/images/' + ${image.id} + '/edit'" title="Edit">Edit</a>
+            <a class="red link pointer f6 f5-l dib mr3 mr4-l" th:href="'/images/' + ${image.id} + '/delete'" title="Delete">Delete</a>
+            <a class="b f6 link dim ph3 pv2 mb2 dib white bg-black" href="/images/upload" title="Upload">Upload Image</a>
+        </div>
+        <div th:unless="${session.currUser}">
+            <a class="black link pointer f6 f5-l dib mr3 mr4-l" href="/signin" title="Sign in">Sign in</a>
+            <a class="b f6 link dim ph3 pv2 mb2 dib white bg-black" href="/signup" title="Sign Up">Sign Up</a>
+        </div>
+    </div>
+</nav>
+<div class="fl w-25-l">
+    &nbsp;
+</div>
+<article class="fl w-50-l w-100 pa3 pa5-ns center">
+    <ul class="list pl0 center">
+        <li class="flex items-center lh-copy">
+            <img class="w3 h3 br-100" th:src="'data:image/jpeg;base64,'+${user.ProfilePhoto.ProfileImageData}" />
+            <div class="pl3 flex-auto">
+                <span class="b f6 db black" th:text="${user.username}">Name</span>
+                <span th:if="${user.description}" class="f6 db black-70" th:text="${user.description}">Description</span>
+            </div>
+        </li>
+    </ul>
+    <h1 class="f2 mb0" th:text="${image.title}">Title</h1>
+    <p class="measure lh-copy mt2 mb4" th:text="${image.description}">text</p>
+    <img th:src="'data:image/jpeg;base64,'+${image.imageFile}" th:alt="${image.title}" class="w-100 dib measure" />
+    <p class="grey f6" th:text="${image.numView} + ' views'">Num Views</p>
+    <ul class="list mt0 mb5 pl0">
+        <li th:each="tag : ${tags}" class="dib">
+            <a th:href="'/tags/' + ${tag.name}"class="f6 link dim ba ph3 pv2 mb2 dib black mr2" th:text="${tag.name}">Tag name</a>
+        </li>
+    </ul>
+    <h5 class="f4 mb0 underline">Comments</h5>
+
+    <p class="f6 f5-ns lh-copy measure" th:text="${error}">
+    <div class="comments mt5">
+    <article th:each="p: ${commentslist}">
+        <h2 class="title" th:text="${p.commentText}">post title</h2>
+
+
+    </article>
+
+</div>
+</article>
+<div class="fl w-25-l">
+    &nbsp;
+</div>
+</body>
+</html>
